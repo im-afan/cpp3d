@@ -9,7 +9,7 @@
 #include "engine/terminalCanvas.h"
 
 int main(int argc, char* argv[]){
-	//std::ios_base::sync_with_stdio(false);
+	std::ios_base::sync_with_stdio(false);
 	Eigen::Vector3d vec(0, 0, 0.1);
 	Eigen::Vector4d pos(0.5, 0, 0, 1);
 	
@@ -17,9 +17,11 @@ int main(int argc, char* argv[]){
 
 	std::cout << rotmat << std::endl;
 
-	TerminalCanvas canvas(100, 100);
+	int width = 160, height = 44;
 
-	std::string s;
+	TerminalCanvas canvas(width, height);
+
+	char* s;
 
 	while(true){
 		canvas.clear();
@@ -33,9 +35,14 @@ int main(int argc, char* argv[]){
 			}
 			std::cout << std::endl;
 		}*/
-		printf("%s", s);
-		sleep(0.1);
-		std::system("clear");	
+		//std::cout << sizeof(s)/sizeof(s[0]) << std::endl;
+		printf("\033[2J");
+		for(int i = 0; i < (width+1)*height; i++){
+			putchar(s[i]);	
+		}
+		//printf("%s", s);
+		//std::cout << s;
+		usleep(8000*2);
 	}
 	
 	return 0;

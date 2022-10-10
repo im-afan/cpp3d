@@ -35,17 +35,19 @@ public:
 		}
 	}
 
-	std::string render(){
+	char* render(){
 		printf("height: %d, width: %d\n", height, width);
-		std::string ret;
+		char* ret = new char[(width+1) * height]; // = (width+1)(height)
 		for(int i = height-1; i >= 0; i--){
 			//std::cout << i << std::endl;	
+			int tmpi = height-i-1;
 			for(int j = 0; j < width; j++){
-				//std::cout << state[i][j] << std::endl;
-				ret += ramp[state[i][j]];	
+				//std::cout << state[i][j] << std::endl;	
+				int tmpj = j;
+				ret[tmpi*width + tmpj] = ramp[state[i][j]];	
 				//std::cout << ramp[state[i][j]];
 			}
-			ret += "\n";
+			ret[(tmpi+1)*width-1] = '\n';
 		}
 		return ret;
 		//std::cout << ret << std::endl;
