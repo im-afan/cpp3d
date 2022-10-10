@@ -1,30 +1,37 @@
 #include <cmath>
-#include <xtensor/xarray.hpp>
+#include <Eigen/Dense>
 #include <iostream>
 
-xt::xarray<double> rotation3d(xt::xarray<double> angles){ //angles given in x, y, z
-	xt::xarray<double> yaw = {
-		{1, 0, 0, 0},
-		{0, cos(angles[0]), -sin(angles[0]), 0},
-		{0, sin(angles[0]), cos(angles[0]), 0},
-		{0, 0, 0, 1}
-	};	
-	xt::xarray<double> pitch = {
-		{cos(angles[1]), 0, sin(angles[1]), 0},
-		{0, 1, 0, 0},
-		{-sin(angles[1]), 0, cos(angles[1]), 0},
-		{0, 0, 0, 1}
-	};	
-	
-	xt::xarray<double> roll = {
-		{cos(angles[0]), -sin(angles[0]), 0},
-		{sin(angles[0]), cos(angles[0]), 0},
-		{0, 0, 1, 0},
-		{0, 0, 0, 1}
-	};
+Eigen::Matrix4d rotation3d(Eigen::Vector3d angles){ //angles given in x, y, z
+	Eigen::Matrix4d yaw; 
+        yaw <<
+		cos(angles[0]), -sin(angles[0]), 0, 0,
+		sin(angles[0]), cos(angles[0]), 0, 0,
+		0, 0, 1, 0,
+		0, 0, 0, 1
+	;
 
-	std::cout << yaw << std::endl;
+	//std::cout << yaw << "\n\n";	
+
+	Eigen::Matrix4d pitch;
+       	pitch <<
+		cos(angles[1]), 0, sin(angles[1]), 0,
+		0, 1, 0, 0,
+		-sin(angles[1]), 0, cos(angles[1]), 0,
+		0, 0, 0, 1
+	;	
+
+	//std::cout << pitch << "\n\n";
 	
+	Eigen::Matrix4d roll;
+	roll << 
+		1, 0, 0, 0,
+		0, cos(angles[2]), -sin(angles[2]), 0,
+		0, sin(angles[2]), cos(angles[2]), 0,
+		0, 0, 0, 1
+	;
+
+	//std::cout << roll << "\n\n";
 
 	return yaw*pitch*roll;
 }
