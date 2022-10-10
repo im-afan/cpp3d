@@ -3,10 +3,14 @@
 #include <xtensor/xio.hpp>
 #include <xtensor/xview.hpp>
 
-int main(int argc, char* argv[]){
-	xt::xarray<double> arr = {1.0, 2.0, 3.0};
-	xt::xarray<double> arr1 = 2*arr;
+#include "engine/geometry.h"
 
-	std::cout << arr1 << std::endl;
+int main(int argc, char* argv[]){
+	xt::xarray<double> rot = {1.0, 2.0, 3.0};
+	std::cout << rot << std::endl;
+	xt::xarray<double> newarr = rotation3d(rot);
+
+	//std::cout << newarr;
+
 	return 0;
 }
