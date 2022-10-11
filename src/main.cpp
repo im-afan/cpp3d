@@ -11,7 +11,10 @@
 int main(int argc, char* argv[]){
 	std::ios_base::sync_with_stdio(false);
 	Eigen::Vector3d vec(0, 0, 0.1);
-	Eigen::Vector4d pos(0.5, 0, 0, 1);
+	
+	Eigen::Vector4d pos1(0.5, 0, 0, 1);
+	Eigen::Vector4d pos2(0, 0.5, 0, 1);
+	Eigen::Vector4d pos3(0.5, 0.5, 0, 1);
 	
 	Eigen::Matrix4d rotmat = rotation3d(vec);
 
@@ -25,24 +28,20 @@ int main(int argc, char* argv[]){
 
 	while(true){
 		canvas.clear();
-		pos = rotmat * pos;
-		//std::cout << pos << std::endl;
-		canvas.drawPoint(pos[0], pos[1], 1);
+		pos1 = rotmat * pos1;
+		pos2 = rotmat * pos2;
+		pos3 = rotmat * pos3;
+		
+		canvas.drawSegment(pos3[0]+0.5, pos3[1]+0.5, pos1[0]+0.5, pos1[1]+0.5, 1);
+		canvas.drawSegment(pos2[0]+0.5, pos2[1]+0.5, pos1[0]+0.5, pos1[1]+0.5, 1);
+		canvas.drawSegment(pos3[0]+0.5, pos3[1]+0.5, pos2[0]+0.5, pos2[1]+0.5, 1);
+		
 		s = canvas.render();
-		/*for(int i = 0; i < canvas.height; i++){
-			for(int j = 0; j < canvas.width; j++){
-				std::cout << canvas.state[i][j] << " ";
-			}
-			std::cout << std::endl;
-		}*/
-		//std::cout << sizeof(s)/sizeof(s[0]) << std::endl;
-		printf("\033[2J");
-		for(int i = 0; i < (width+1)*height; i++){
-			putchar(s[i]);	
-		}
-		//printf("%s", s);
+		
+		printf("\033[H\033[2J");
+		printf("%s", s);
 		//std::cout << s;
-		usleep(8000*2);
+		usleep(8000*3);
 	}
 	
 	return 0;

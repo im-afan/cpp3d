@@ -53,8 +53,10 @@ public:
 		//std::cout << ret << std::endl;
 	}
 
-	void drawLine(double x1, double y1, double x2, double y2, double a){
-		
+	void drawSegment(double x1, double y1, double x2, double y2, double a){
+		for(double i = 0; i < 1; i += 0.01){
+			drawPoint(i*x1+(1-i)*x2, i*y1+(1-i)*y2, a);
+		}
 	}
 };
 
