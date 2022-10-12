@@ -42,7 +42,7 @@ public:
 	}
 
 	char* render(){
-		printf("height: %d, width: %d\n", height, width);
+		//printf("height: %d, width: %d\n", height, width);
 		char* ret = new char[(width+1) * height]; // = (width+1)(height)
 		for(int i = height-1; i >= 0; i--){
 			//std::cout << i << std::endl;	

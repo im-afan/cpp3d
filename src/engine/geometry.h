@@ -2,7 +2,7 @@
 #include <Eigen/Dense>
 #include <iostream>
 
-Eigen::Matrix4d rotation3d(Eigen::Vector3d angles){ //angles given in x, y, z
+Eigen::Matrix4d rotation3d(Eigen::VectorXd angles){ //angles given in x, y, z
 	Eigen::Matrix4d roll; 
         roll <<
 		cos(angles[2]), -sin(angles[2]), 0, 0,
@@ -36,4 +36,14 @@ Eigen::Matrix4d rotation3d(Eigen::Vector3d angles){ //angles given in x, y, z
 	return yaw*pitch*roll;
 }
 
+Eigen::Matrix4d translation3d(Eigen::VectorXd transform){
+	Eigen::Matrix4d ret;
+	ret << 
+		1, 0, 0, transform[0],
+		0, 1, 0, transform[1],
+		0, 0, 1, transform[2],
+		0, 0, 0, 1
+	;
 
+	return ret;
+}
