@@ -11,7 +11,7 @@ public:
 	//int** state;
 	std::vector<std::vector<int>> state;
 	std::vector<std::vector<double>> zbuffer;
-	std::string ramp = ".-:=+m&$#";
+	std::string ramp = " .-:=+m&$#";
 	
 	TerminalCanvas(int w, int h){ //width, height
 		width = w, height = h;
@@ -59,9 +59,9 @@ public:
 		//std::cout << ret << std::endl;
 	}
 
-	void drawSegment(double x1, double y1, double x2, double y2, double a){ //TODO: switch to vector input
+	void drawSegment(Eigen::VectorXd p1, Eigen::VectorXd p2, double a){ //TODO: switch to vector input
 		for(double i = 0; i < 1; i += 0.01){
-			drawPoint(i*x1+(1-i)*x2, i*y1+(1-i)*y2, a);
+			drawPoint(i*p1[0]+(1-i)*p2[0], i*p1[1]+(1-i)*p2[1], a);
 		}
 	}
 
