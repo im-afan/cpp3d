@@ -32,9 +32,9 @@ int main(int argc, char* argv[]){
 		pos2 = rotmat * pos2;
 		pos3 = rotmat * pos3;
 		
-		canvas.drawSegment(pos3[0]+0.5, pos3[1]+0.5, pos1[0]+0.5, pos1[1]+0.5, 1);
-		canvas.drawSegment(pos2[0]+0.5, pos2[1]+0.5, pos1[0]+0.5, pos1[1]+0.5, 1);
-		canvas.drawSegment(pos3[0]+0.5, pos3[1]+0.5, pos2[0]+0.5, pos2[1]+0.5, 1);
+		canvas.drawSegment(pos1, pos2, 1);
+		canvas.drawSegment(pos2, pos3, 1);
+		canvas.drawSegment(pos3, pos1, 1);
 		
 		s = canvas.render();
 		
