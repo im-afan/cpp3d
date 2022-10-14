@@ -72,9 +72,17 @@ public:
 		}
 	}
 
-	void drawPoint(double x, double y, double a){ // 0 <= x, y <= 1 TODO: switch to vector input
-		if(0 <= x && x <= 1 && 0 <= y && y <= 1)
-			state[(int) (y*height)][(int) (x*width)] = (int) (a*(ramp.size()-1));
+	void drawPoint(double x, double y, double a, double depth=0){ // 0 <= x, y <= 1 TODO: switch to vector input
+		if(0 <= x && x <= 1 && 0 <= y && y <= 1){
+			if(USE_Z_BUFFER){
+				if(depth >= zbuffer[y][x]){
+			       		state[(int) (y*height)][(int) (x*width)] = (int) (a*(ramp.size()-1));
+					zbuffer[y][x] = depth;
+				}
+			} else{
+			       	state[(int) (y*height)][(int) (x*width)] = (int) (a*(ramp.size()-1));
+			}
+		}
 	}
 };
 
