@@ -12,6 +12,7 @@ public:
 	std::vector<std::vector<int>> state;
 	std::vector<std::vector<double>> zbuffer;
 	std::string ramp = " .-:=+m&$#";
+	bool USE_Z_BUFFER = true;
 	
 	TerminalCanvas(int w, int h){ //width, height
 		width = w, height = h;
@@ -25,11 +26,6 @@ public:
 			state.push_back(temp);
 			zbuffer.push_back(temp1);
 		}		
-	}
-
-	void drawPoint(double x, double y, double a){ // 0 <= x, y <= 1 TODO: switch to vector input
-		if(0 <= x && x <= 1 && 0 <= y && y <= 1)
-			state[(int) (y*height)][(int) (x*width)] = (int) (a*(ramp.size()-1));
 	}
 
 	void clear(){
@@ -60,11 +56,25 @@ public:
 	}
 
 	void drawSegment(Eigen::VectorXd p1, Eigen::VectorXd p2, double a){ //TODO: switch to vector input
-		for(double i = 0; i < 1; i += 0.01){
+		for(double i = 0; i <= 1; i += 0.01){
 			drawPoint(i*p1[0]+(1-i)*p2[0], i*p1[1]+(1-i)*p2[1], a);
 		}
 	}
 
-	void drawTriangle(Eigen::VectorXd p1, Eigen::VectorXd p2, Eigen::VectorXd p3, double a1, double a2, double a3){}
+	void drawTriangle(Eigen::VectorXd p1, Eigen::VectorXd p2, Eigen::VectorXd p3, double a1, double a2, double a3){
+		for(double w1 = 0; w1 <= 1; w1 += 0.01){
+			for(double w2 = 0; w1+w2 <= 1; w2 += 0.01){
+				double w3 = 1-w1-w2;
+				double a = w1*a1 + w2*a2 + w3*a3;
+				Eigen::VectorXd p = p1*w1 + p2*w2 + p3*w3;
+				drawPoint(p[0], p[1], a);
+			}
+		}
+	}
+
+	void drawPoint(double x, double y, double a){ // 0 <= x, y <= 1 TODO: switch to vector input
+		if(0 <= x && x <= 1 && 0 <= y && y <= 1)
+			state[(int) (y*height)][(int) (x*width)] = (int) (a*(ramp.size()-1));
+	}
 };
 

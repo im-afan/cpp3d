@@ -32,10 +32,8 @@ int main(int argc, char* argv[]){
 		pos2 = rotmat * pos2;
 		pos3 = rotmat * pos3;
 		
-		canvas.drawSegment(pos1, pos2, 1);
-		canvas.drawSegment(pos2, pos3, 1);
-		canvas.drawSegment(pos3, pos1, 1);
-		
+		canvas.drawTriangle(pos1, pos2, pos3, 1, 0.5, 0.1);
+
 		s = canvas.render();
 		
 		printf("\033[H\033[2J");
