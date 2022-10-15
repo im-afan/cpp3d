@@ -11,7 +11,7 @@ public:
 	//int** state;
 	std::vector<std::vector<int>> state;
 	std::vector<std::vector<double>> zbuffer;
-	std::string ramp = " .-:=+m&$#";
+	std::string ramp = ".-:=+nm&$#";
 	bool USE_Z_BUFFER = true;
 	
 	TerminalCanvas(int w, int h){ //width, height
@@ -61,7 +61,7 @@ public:
 		}
 	}
 
-	void drawTriangle(Eigen::VectorXd p1, Eigen::VectorXd p2, Eigen::VectorXd p3, double a1, double a2, double a3){
+	void drawTriangle(Eigen::VectorXd p1, Eigen::VectorXd p2, Eigen::VectorXd p3, double a1, double a2, double a3, double depth=0){
 		for(double w1 = 0; w1 <= 1; w1 += 0.01){
 			for(double w2 = 0; w1+w2 <= 1; w2 += 0.01){
 				double w3 = 1-w1-w2;
@@ -73,6 +73,8 @@ public:
 	}
 
 	void drawPoint(double x, double y, double a, double depth=0){ // 0 <= x, y <= 1 TODO: switch to vector input
+		if(a > 1) a = 1;
+		if(a < 0) a = 0;
 		if(0 <= x && x <= 1 && 0 <= y && y <= 1){
 			if(USE_Z_BUFFER){
 				if(depth >= zbuffer[y][x]){

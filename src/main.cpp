@@ -9,7 +9,11 @@
 //#include "engine/geometry.h"
 #include "engine/terminalCanvas.h"
 #include "engine/perspectiveCamera.h"
+#include "engine/shader.h"
 #include <vector>
+
+double DIFFUSE_POWER = 2;
+double AMBIENT_POWER = 1;
 
 int main(int argc, char* argv[]){
 	std::ios_base::sync_with_stdio(false);
@@ -22,6 +26,13 @@ int main(int argc, char* argv[]){
 		Eigen::Vector4d(-1, 1, 0, 1),
 		Eigen::Vector4d(-1, -1, 0, 1),
 		Eigen::Vector4d(1, -1, 0, 1)
+	};
+
+	std::vector<Eigen::Vector4d> normals = {
+		Eigen::Vector4d(1, 1, 0, 0),
+		Eigen::Vector4d(-1, 1, 0, 0),
+		Eigen::Vector4d(-1, -1, 0, 0),
+		Eigen::Vector4d(1, -1, 0, 0)
 	};
 
 	std::vector<int> inds = {
@@ -57,16 +68,19 @@ int main(int argc, char* argv[]){
 			//get projected points using camera
 			Eigen::Vector2d proj1 = cam.project(transform * verts[i1]), proj2 = cam.project(transform * verts[i2]), proj3 = cam.project(transform * verts[i3]);
 			
+			double a1 = DIFFUSE_POWER * calcDiffuse(Eigen::Vector4d(1, 1, 0, 1), verts[i1], transform * normals[i1]) + AMBIENT_POWER;
+			double a2 = DIFFUSE_POWER * calcDiffuse(Eigen::Vector4d(1, 1, 0, 1), verts[i2], transform * normals[i2]) + AMBIENT_POWER;
+			double a3 = DIFFUSE_POWER * calcDiffuse(Eigen::Vector4d(1, 1, 0, 1), verts[i3], transform * normals[i3]) + AMBIENT_POWER;
 			//projected points are between 1 and -1, but we need them between 0 and 1 to draw them
 			Eigen::Vector2d move(1, 1);
-			canvas.drawTriangle((proj1+move)/2, (proj2+move)/2, (proj3+move)/2, 1, 0.75, 0.5);
+			canvas.drawTriangle((proj1+move)/2, (proj2+move)/2, (proj3+move)/2, a1, a2, a3);
 		}
 		
 		s = canvas.render();
 		
 		printf("\033[H\033[2J");
 		printf("%s", s);
-		usleep(8000*3);
+		usleep(50000);
 	}
 	
 	return 0;
