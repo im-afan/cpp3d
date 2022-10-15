@@ -11,7 +11,7 @@ public:
 	//int** state;
 	std::vector<std::vector<int>> state;
 	std::vector<std::vector<double>> zbuffer;
-	std::string ramp = ".-:=+nm&$#";
+	std::string ramp = " .-=+anm&$#";
 	bool USE_Z_BUFFER = true;
 	
 	TerminalCanvas(int w, int h){ //width, height

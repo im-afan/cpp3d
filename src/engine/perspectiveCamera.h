@@ -36,10 +36,10 @@ class PerspectiveCamera{
 			//draw a "line" to the projection plane
 			//printf("near: %f, right: %f, left: %f\n", near, right, left);
 			//printf("near/z*x: %f, 1/(right-left): %f\n", near/z*x, 1/right-left);
-			if(z >= near) 
+			//if(z >= near) 
 				return Eigen::Vector2d(near/z*x * 1/(right-left), near/z*y * 1/(top-bottom)); //reminder: it's from -1 to 1, not 0 to 1 rn
-			else
-				return Eigen::Vector2d(near/z*x * 1/(right-left), near/z*y * 1/(top-bottom)); //reminder: it's from -1 to 1, not 0 to 1 rn
+			//else
+			//	return Eigen::Vector2d(near/z*x * 1/(right-left), near/z*y * 1/(top-bottom)); //reminder: it's from -1 to 1, not 0 to 1 rn
 			//return Eigen::Vector2d(near/z*x, near/z*y);
 			//return Eigen::Vector2d(0.5, 0.5);
 		}
