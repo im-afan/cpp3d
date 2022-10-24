@@ -5,6 +5,8 @@
 #include <algorithm>
 #include <Eigen/Dense>
 
+#define INT_MAX 1e9 + 7
+
 class TerminalCanvas {
 public:
 	int width, height;
@@ -32,7 +34,7 @@ public:
 		for(int i = 0; i < height; i++){
 			for(int j = 0; j < width; j++){
 				state[i][j] = 0;
-				zbuffer[i][j] = 0;
+				zbuffer[i][j] = INT_MAX;
 			}
 		}
 	}
@@ -67,7 +69,7 @@ public:
 				double w3 = 1-w1-w2;
 				double a = w1*a1 + w2*a2 + w3*a3;
 				Eigen::VectorXd p = p1*w1 + p2*w2 + p3*w3;
-				drawPoint(p[0], p[1], a);
+				drawPoint(p[0], p[1], a, depth);
 			}
 		}
 	}
@@ -77,7 +79,7 @@ public:
 		if(a < 0) a = 0;
 		if(0 <= x && x <= 1 && 0 <= y && y <= 1){
 			if(USE_Z_BUFFER){
-				if(depth >= zbuffer[y][x]){
+				if(depth <= zbuffer[y][x]){
 			       		state[(int) (y*height)][(int) (x*width)] = (int) (a*(ramp.size()-1));
 					zbuffer[y][x] = depth;
 				}
