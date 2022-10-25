@@ -12,7 +12,7 @@
 #include <vector>
 
 double DIFFUSE_POWER = 1;
-double AMBIENT_POWER = 0.1;
+double AMBIENT_POWER = 0.2;
 
 int main(int argc, char* argv[]){
 	std::ios_base::sync_with_stdio(false);
@@ -28,10 +28,10 @@ int main(int argc, char* argv[]){
 	};
 
 	std::vector<Eigen::Vector4d> normals = {
-		Eigen::Vector4d(0, 0, 1, 0),
-		Eigen::Vector4d(0, 0, 1, 0),
-		Eigen::Vector4d(0, 0, 1, 0),
-		Eigen::Vector4d(0, 0, 1, 0)
+		Eigen::Vector4d(0, 0, -1, 0),
+		Eigen::Vector4d(0, 0, -1, 0),
+		Eigen::Vector4d(0, 0, -1, 0),
+		Eigen::Vector4d(0, 0, -1, 0)
 	};
 
 	std::vector<Eigen::Vector4d> faceRotations = {
@@ -42,7 +42,10 @@ int main(int argc, char* argv[]){
 	std::vector<Eigen::Matrix4d> faceTransforms = {
 		translation3d(Eigen::Vector4d(0, 0, 1, 0)),// * rotation3d(Eigen::Vector4d(0, 0, 0, 0)),
 		translation3d(Eigen::Vector4d(0, 0, -1, 0)),// * rotation3d(Eigen::Vector4d(0, 0, 0, 0))
-		rotation3d(Eigen::Vector4d(3.14/2, 0, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, 1, 0))
+		rotation3d(Eigen::Vector4d(3.14/2, 0, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, 1, 0)),
+		rotation3d(Eigen::Vector4d(3.14/2, 0, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, -1, 0)),
+		rotation3d(Eigen::Vector4d(0, 3.14/2, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, -1, 0)),
+		rotation3d(Eigen::Vector4d(0, 3.14/2, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, 1, 0)),
 	};
 
 	std::vector<int> inds = {
@@ -59,10 +62,10 @@ int main(int argc, char* argv[]){
 
 	std::cout << rotmat << std::endl;
 
-	int width = 160, height = 44;
+	int width = 160, height = 60;
 
 	TerminalCanvas canvas(width, height);
-	canvas.USE_Z_BUFFER = false; //leave this here for now rehehehehehehe
+	canvas.USE_Z_BUFFER = true; //leave this here for now rehehehehehehe
 
 	char* s;
 
@@ -79,7 +82,7 @@ int main(int argc, char* argv[]){
 				int i1 = inds[i], i2 = inds[i+1], i3 = inds[i+2];
 				//get projected points using camera
 				Eigen::Matrix4d t = transform *  faceTransforms[j];//  * transform;
-				double depth = (t * verts[i1])[0] + (t * verts[i2])[1] + (t * verts[i3])[2];
+				double depth = (t * verts[i1])[2] + (t * verts[i2])[2] + (t * verts[i3])[2];
 				Eigen::Vector2d proj1 = cam.project(t * verts[i1]), proj2 = cam.project(t * verts[i2]), proj3 = cam.project(t * verts[i3]);
 				
 				double a1 = DIFFUSE_POWER * calcDiffuse(Eigen::Vector4d(1, 1, 0, 1), t * verts[i1], t * normals[i1]) + AMBIENT_POWER;

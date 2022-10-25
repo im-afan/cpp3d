@@ -34,7 +34,7 @@ public:
 		for(int i = 0; i < height; i++){
 			for(int j = 0; j < width; j++){
 				state[i][j] = 0;
-				zbuffer[i][j] = INT_MAX;
+				zbuffer[i][j] = (double) INT_MAX;
 			}
 		}
 	}
