@@ -10,7 +10,7 @@ double calcDiffuse(Eigen::VectorXd lightPos, Eigen::VectorXd vertPos, Eigen::Vec
 
 	double ret = normalizedNormal.dot(lightDir);
 	
-	return std::abs(ret);
+	//return std::abs(ret);
 	if(ret > 0) return ret;
 	return 0;
 }

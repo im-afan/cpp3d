@@ -13,7 +13,7 @@ public:
 	//int** state;
 	std::vector<std::vector<int>> state;
 	std::vector<std::vector<double>> zbuffer;
-	std::string ramp = " .-=+anm&$#";
+	std::string ramp = " .-:=+oamn$&#";
 	bool USE_Z_BUFFER = true;
 	
 	TerminalCanvas(int w, int h){ //width, height
@@ -79,9 +79,11 @@ public:
 		if(a < 0) a = 0;
 		if(0 <= x && x <= 1 && 0 <= y && y <= 1){
 			if(USE_Z_BUFFER){
-				if(depth <= zbuffer[y][x]){
-			       		state[(int) (y*height)][(int) (x*width)] = (int) (a*(ramp.size()-1));
-					zbuffer[y][x] = depth;
+				int canvasy = (int) (y*height);
+				int canvasx = (int) (x*width);
+				if(depth <= zbuffer[canvasy][canvasx]){
+			       		state[canvasy][canvasx] = (int) (a*(ramp.size()-1));
+					zbuffer[canvasy][canvasx] = depth;
 				}
 			} else{
 			       	state[(int) (y*height)][(int) (x*width)] = (int) (a*(ramp.size()-1));

@@ -101,7 +101,7 @@ int main(int argc, char* argv[]){
 		
 		printf("\033[H\033[2J");
 		printf("%s", s);
-		usleep(8000*3);
+		usleep(8000*2);
 	}
 	
 	return 0;
