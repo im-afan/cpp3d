@@ -62,7 +62,7 @@ int main(int argc, char* argv[]){
 
 	std::cout << rotmat << std::endl;
 
-	int width = 160, height = 60;
+	int width = 120, height = 44;
 
 	TerminalCanvas canvas(width, height);
 	canvas.USE_Z_BUFFER = true; //leave this here for now rehehehehehehe
