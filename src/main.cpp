@@ -58,7 +58,7 @@ int main(int argc, char* argv[]){
 	Eigen::Vector3d vec(0.1, 0.1, 0.1);
 	Eigen::Matrix4d rotmat = rotation3d(vec);
 
-	Eigen::Matrix4d transform = translation3d(Eigen::Vector3d(0, 0, 2.2)); //rename this to model matrix later oops
+	Eigen::Matrix4d transform = translation3d(Eigen::Vector3d(0, 0, 2.5)); //rename this to model matrix later oops
 
 	std::cout << rotmat << std::endl;
 

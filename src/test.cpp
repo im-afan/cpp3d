@@ -1,10 +1,13 @@
 #include <Eigen/Dense>
 #include "engine/geometry.h"
+#include "engine/objParser.h"
 #include <iostream>
+#include <string>
 
 int main(){
-	Eigen::Vector4d pos(1, 2, 3, 1);
-	Eigen::Vector4d t(1, 1, 1, 0);
-	Eigen::Matrix4d translate= translation3d(t);
-	std::cout << translate * pos;
+	std::string path = "/home/andrew/sdcard/code/cpp3d/src/cube.obj";
+	std::string s;
+	fileToStr(path, s); 
+	//s = "kjanseilfnaienf";
+	std::cout << s;
 }

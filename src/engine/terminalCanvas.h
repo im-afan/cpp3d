@@ -13,7 +13,7 @@ public:
 	//int** state;
 	std::vector<std::vector<int>> state;
 	std::vector<std::vector<double>> zbuffer;
-	std::string ramp =  " ~;+coewm#$@&8";
+	std::string ramp =  " .~+;?%&#@";
 	bool USE_Z_BUFFER = true;
 	
 	TerminalCanvas(int w, int h){ //width, height
