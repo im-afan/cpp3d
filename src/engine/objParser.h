@@ -66,5 +66,22 @@ std::vector<Eigen::Vector4d> parseNormals(std::vector<std::string> lines){
 }
 
 std::vector<int> parseInds(std::vector<std::string> lines){
+	std::vector<int> inds;
 
+	for(std::string line: lines){
+		std::string tmpline = "";
+		for(int i = 0; i < line.size(); i++){
+			if(line[i] == '/') tmpline += ' ';
+			else tmpline += line[i];
+		}
+		std::istringstream iss(tmpline);
+		std::string type; iss >> type;
+		std::cout << tmpline << std::endl;
+		if(type == "f"){
+			int ind;
+			while(iss >> ind) inds.push_back(--ind);	
+		}
+	}
+
+	return inds;
 }

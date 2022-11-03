@@ -13,7 +13,7 @@ public:
 	//int** state;
 	std::vector<std::vector<int>> state;
 	std::vector<std::vector<double>> zbuffer;
-	std::string ramp =  " .~+;?%&#@";
+	std::string ramp =  " .~+;cog&#@";
 	bool USE_Z_BUFFER = true;
 	
 	TerminalCanvas(int w, int h){ //width, height
@@ -64,8 +64,15 @@ public:
 	}
 
 	void drawTriangle(Eigen::VectorXd p1, Eigen::VectorXd p2, Eigen::VectorXd p3, double a1, double a2, double a3, double depth=0){
-		for(double w1 = 0; w1 <= 1; w1 += 0.01){
-			for(double w2 = 0; w1+w2 <= 1; w2 += 0.01){
+		double area = std::abs((p1[0]*p2[1] + p2[0]*p3[1] + p3[0]*p1[1]) - (p1[1]*p2[0] + p2[1]*p3[0] + p3[1]*p1[0]));
+
+		/*std::cout << area << std::endl;
+		std::cout << "area 1:" << (p1[0]*p2[1] + p2[0]*p3[1] + p3[0]*p1[1]) << std::endl;
+		std::cout << "area 2: " << (p1[1]*p2[0] + p2[1]*p3[0] + p3[1]*p1[0]) << std::endl;*/
+
+
+		for(double w1 = 0; w1 <= 1; w1 += 1/area/1000){
+			for(double w2 = 0; w1+w2 <= 1; w2 += 1/area/1000){
 				double w3 = 1-w1-w2;
 				double a = w1*a1 + w2*a2 + w3*a3;
 				Eigen::VectorXd p = p1*w1 + p2*w2 + p3*w3;

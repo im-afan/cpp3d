@@ -16,7 +16,8 @@ int main(){
 
 	std::vector<Eigen::Vector4d> verts = parseVerts(vec);
 
-	std::cout << verts.size();
+	std::vector<int> inds = parseInds(vec);
 
-	for(auto i: verts) std::cout << i  << std::endl;
+	for(int i: inds) std::cout << i << std::endl;
 }
+

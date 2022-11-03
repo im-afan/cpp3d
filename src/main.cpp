@@ -26,6 +26,7 @@ int main(int argc, char* argv[]){
 		Eigen::Vector4d(-1, -1, 0, 1),
 		Eigen::Vector4d(1, -1, 0, 1)
 	};
+	Eigen::Vector4d normal(0, 0, -1, 0);
 
 	std::vector<Eigen::Vector4d> normals = {
 		Eigen::Vector4d(0, 0, -1, 0),
@@ -55,7 +56,7 @@ int main(int argc, char* argv[]){
 	
 	PerspectiveCamera cam(-1, 1, -1, 1, 1, 100);
 	
-	Eigen::Vector3d vec(0.1, 0.1, 0.1);
+	Eigen::Vector3d vec(0.1, 0.2, 0.3);
 	Eigen::Matrix4d rotmat = rotation3d(vec);
 
 	Eigen::Matrix4d transform = translation3d(Eigen::Vector3d(0, 0, 2.5)); //rename this to model matrix later oops
@@ -87,9 +88,9 @@ int main(int argc, char* argv[]){
 				double depth = (t * verts[i1])[2] + (t * verts[i2])[2] + (t * verts[i3])[2];
 				Eigen::Vector2d proj1 = cam.project(t * verts[i1]), proj2 = cam.project(t * verts[i2]), proj3 = cam.project(t * verts[i3]);
 				
-				double a1 = DIFFUSE_POWER * calcDiffuse(Eigen::Vector4d(1, 1, 0, 1), t * verts[i1], t * normals[i1]) + AMBIENT_POWER;
-				double a2 = DIFFUSE_POWER * calcDiffuse(Eigen::Vector4d(1, 1, 0, 1), t * verts[i2], t * normals[i2]) + AMBIENT_POWER;
-				double a3 = DIFFUSE_POWER * calcDiffuse(Eigen::Vector4d(1, 1, 0, 1), t * verts[i3], t * normals[i3]) + AMBIENT_POWER;
+				double a1 = DIFFUSE_POWER * calcDiffuse(Eigen::Vector4d(1, 1, 0, 1), t * verts[i1], t * normal) + AMBIENT_POWER;
+				double a2 = DIFFUSE_POWER * calcDiffuse(Eigen::Vector4d(1, 1, 0, 1), t * verts[i2], t * normal) + AMBIENT_POWER;
+				double a3 = DIFFUSE_POWER * calcDiffuse(Eigen::Vector4d(1, 1, 0, 1), t * verts[i3], t * normal) + AMBIENT_POWER;
 				//projected points are between 1 and -1, but we need them between 0 and 1 to draw them
 				Eigen::Vector2d move(1, 1);
 				canvas.drawTriangle((proj1+move)/2, (proj2+move)/2, (proj3+move)/2, a1, a2, a3, depth);
