@@ -87,11 +87,11 @@ int main(int argc, char* argv[]){
 
 	std::vector<Eigen::Matrix4d> faceTransforms = {
 		translation3d(Eigen::Vector4d(0, 0, 1, 0)),// * rotation3d(Eigen::Vector4d(0, 0, 0, 0)),
-		//translation3d(Eigen::Vector4d(0, 0, -1, 0)),// * rotation3d(Eigen::Vector4d(0, 0, 0, 0))
+		translation3d(Eigen::Vector4d(0, 0, -1, 0)),// * rotation3d(Eigen::Vector4d(0, 0, 0, 0))
 		rotation3d(Eigen::Vector4d(3.14/2, 0, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, 1, 0)),
-		//rotation3d(Eigen::Vector4d(3.14/2, 0, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, -1, 0)),
+		rotation3d(Eigen::Vector4d(3.14/2, 0, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, -1, 0)),
 		rotation3d(Eigen::Vector4d(0, 3.14/2, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, -1, 0)),
-		//rotation3d(Eigen::Vector4d(0, 3.14/2, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, 1, 0)),
+		rotation3d(Eigen::Vector4d(0, 3.14/2, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, 1, 0)),
 	};
 
 	std::vector<int> inds = {
@@ -108,8 +108,8 @@ int main(int argc, char* argv[]){
 
 	std::cout << rotmat << std::endl;
 
-	const unsigned width=1080;
-	const unsigned height=720;
+	const unsigned width=200;
+	const unsigned height=200;
 	
 	TerminalCanvas canvas(width, height);
 
