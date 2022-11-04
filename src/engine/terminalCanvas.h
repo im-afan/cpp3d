@@ -72,8 +72,8 @@ public:
 		std::cout << "area 2: " << (p1[1]*p2[0] + p2[1]*p3[0] + p3[1]*p1[0]) << std::endl;*/
 
 
-		for(double w1 = 0; w1 <= 1; w1 += 1/std::sqrt(area)/1000){
-			for(double w2 = 0; w1+w2 <= 1; w2 += 1/std::sqrt(area)/1000){
+		for(double w1 = 0; w1 <= 1; w1 += 1/std::sqrt(area)/1500){
+			for(double w2 = 0; w1+w2 <= 1; w2 += 1/std::sqrt(area)/1500){
 				double w3 = 1-w1-w2;
 				double a = w1*a1 + w2*a2 + w3*a3;
 				Eigen::VectorXd p = p1*w1 + p2*w2 + p3*w3;
