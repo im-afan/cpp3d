@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 #include <Eigen/Dense>
+#include <cmath>
 
 #define INT_MAX 1e9 + 7
 
@@ -11,7 +12,7 @@ class TerminalCanvas {
 public:
 	int width, height;
 	//int** state;
-	std::vector<std::vector<int>> state;
+	std::vector<std::vector<double>> state;
 	std::vector<std::vector<double>> zbuffer;
 	std::string ramp =  " .~+;cog&#@";
 	bool USE_Z_BUFFER = true;
@@ -25,7 +26,7 @@ public:
 		std::fill(temp1.begin(), temp1.end(), 0);
 
 		for(int i = 0; i < height; i++){
-			state.push_back(temp);
+			state.push_back(temp1);
 			zbuffer.push_back(temp1);
 		}		
 	}
@@ -48,7 +49,7 @@ public:
 			for(int j = 0; j < width; j++){
 				//std::cout << state[i][j] << std::endl;	
 				int tmpj = j;
-				ret[tmpi*width + tmpj] = ramp[state[i][j]];	
+				ret[tmpi*width + tmpj] = ramp[(int) (state[i][j] * (ramp.size()-1))];	
 				//std::cout << ramp[state[i][j]];
 			}
 			ret[(tmpi+1)*width-1] = '\n';
@@ -71,8 +72,8 @@ public:
 		std::cout << "area 2: " << (p1[1]*p2[0] + p2[1]*p3[0] + p3[1]*p1[0]) << std::endl;*/
 
 
-		for(double w1 = 0; w1 <= 1; w1 += 1/area/1000){
-			for(double w2 = 0; w1+w2 <= 1; w2 += 1/area/1000){
+		for(double w1 = 0; w1 <= 1; w1 += 1/std::sqrt(area)/1000){
+			for(double w2 = 0; w1+w2 <= 1; w2 += 1/std::sqrt(area)/1000){
 				double w3 = 1-w1-w2;
 				double a = w1*a1 + w2*a2 + w3*a3;
 				Eigen::VectorXd p = p1*w1 + p2*w2 + p3*w3;
@@ -89,7 +90,7 @@ public:
 				int canvasy = (int) (y*height);
 				int canvasx = (int) (x*width);
 				if(depth <= zbuffer[canvasy][canvasx]){
-			       		state[canvasy][canvasx] = (int) (a*(ramp.size()-1));
+			       		state[canvasy][canvasx] =  (a);
 					zbuffer[canvasy][canvasx] = depth;
 				}
 			} else{

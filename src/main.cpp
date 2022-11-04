@@ -42,10 +42,10 @@ int main(int argc, char* argv[]){
 
 	std::vector<Eigen::Matrix4d> faceTransforms = {
 		translation3d(Eigen::Vector4d(0, 0, 1, 0)),// * rotation3d(Eigen::Vector4d(0, 0, 0, 0)),
-		translation3d(Eigen::Vector4d(0, 0, -1, 0)),// * rotation3d(Eigen::Vector4d(0, 0, 0, 0))
+		//translation3d(Eigen::Vector4d(0, 0, -1, 0)),// * rotation3d(Eigen::Vector4d(0, 0, 0, 0))
 		rotation3d(Eigen::Vector4d(3.14/2, 0, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, 1, 0)),
-		rotation3d(Eigen::Vector4d(3.14/2, 0, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, -1, 0)),
-		rotation3d(Eigen::Vector4d(0, 3.14/2, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, -1, 0)),
+		//rotation3d(Eigen::Vector4d(3.14/2, 0, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, -1, 0)),
+		//rotation3d(Eigen::Vector4d(0, 3.14/2, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, -1, 0)),
 		rotation3d(Eigen::Vector4d(0, 3.14/2, 0, 0)) * translation3d(Eigen::Vector4d(0, 0, 1, 0)),
 	};
 
