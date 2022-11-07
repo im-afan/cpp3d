@@ -1,8 +1,35 @@
 #include <vector>
 #include <Eigen/Dense>
 
-bool rayTriangleIntersect(Eigen::VectorXd ray, Eigen::VectorXd p1, Eigen::VectorXd p2, Eigen::VectorXd p3){	
+bool rayTriangleIntersect(Eigen::VectorXd ray, Eigen::VectorXd v1, Eigen::VectorXd v2, Eigen::VectorXd v3){	
+	Eigen::Vector3d p1, p2, p3;
+	p1 = v1.head<3>(), p2 = v2.head<3>(), p3 = v3.head<3>();
 	
+	Eigen::Vector3d edge1, edge2;
+	edge1 = (p2 - p1).head<3>();
+	edge2 = (p3 - p2).head<3>();
+
+	Eigen::Vector3d normal = edge1.cross(edge2);
+
+	//plane equation: normal[0]x + normal[1]y + normal[2]z + D = 0
+	
+	double a = normal[0], double b = normal[1], double c = normal[2];
+
+	//ax + bx + cz + d = 0
+
+	//solve for d
+	double d = -(a * p1[0] + b * p1[1] + c * p2[2]); //any point would work in this case
+
+	//calculate constant n such that ray*n intersects with plane
+	
+	n = -d / (a*ray[0] + b*ray[1] + c*ray[2]);
+
+	if(n < 0) return false; //plane is behind ray
+
+	Eigen::Vector3d intersect = ray*n;
+
+	Eigen::Vector3d s1, s2, s3; //segments connecting vertices of triangle to intersection point
+	s1 = p1-intersect, s2 = p2-intersect, s3 = p3-intersect;
 }
 
 class RayTracerCamera{
