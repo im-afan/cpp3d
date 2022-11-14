@@ -14,8 +14,18 @@
 double DIFFUSE_POWER = 1;
 double AMBIENT_POWER = 0.2;
 
+int width, height;
+
 int main(int argc, char* argv[]){
 	std::ios_base::sync_with_stdio(false);
+
+	if(argc >= 3){
+		width = atoi(argv[1]);
+		height = atoi(argv[2]);	
+	} else{
+		width = 120;
+		height = 44;
+	}
 	
 	/*Eigen::Vector4d pos1(0.5, 0, 0, 1);
 	Eigen::Vector4d pos2(0, 0.5, 0, 1);
@@ -63,7 +73,6 @@ int main(int argc, char* argv[]){
 
 	std::cout << rotmat << std::endl;
 
-	int width = 120, height = 44;
 
 	TerminalCanvas canvas(width, height);
 	canvas.USE_Z_BUFFER = true; //leave this here for now rehehehehehehe

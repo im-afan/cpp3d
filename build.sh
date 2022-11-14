@@ -1,2 +1,2 @@
 echo 'building project...'
-g++ -I /usr/include/xtensor -I ./src/engine ./src/main.cpp -o main
+g++  -I ./src/engine ./src/main.cpp -o main -std=c++17
